@@ -15,6 +15,7 @@ services:
       args:
         - MAVEN_OPTS=${MAVEN_OPTS}
     command: ["/opt/presto/bin/launcher", "run"]
+    cpuset: "0" 
     depends_on:
       - mysql
       - hive
@@ -30,6 +31,7 @@ services:
         - MAVEN_OPTS=${MAVEN_OPTS}
     volumes:
       - ./data/:/data/:ro
+    cpuset: "1" 
     ports:
       - "9870:9870"
       - "8020:8020"
@@ -42,6 +44,7 @@ services:
         - MAVEN_OPTS=${MAVEN_OPTS}
     depends_on:
       - namenode
+    cpuset: "2" 
     ports:
       - "9864:9864"
       - "9866:9866"
@@ -58,6 +61,7 @@ services:
       - mysql
       - namenode
       - datanode
+    cpuset: "3" 
     ports:
       - "9083:9083"
     command: ["/scripts/hive-entrypoint.sh"]
